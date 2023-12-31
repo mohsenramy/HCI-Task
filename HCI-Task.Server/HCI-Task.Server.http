@@ -1,0 +1,6 @@
+@HCI_Task.Server_HostAddress = http://localhost:5283
+
+GET {{HCI_Task.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
