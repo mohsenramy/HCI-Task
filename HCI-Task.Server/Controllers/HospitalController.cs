@@ -1,6 +1,7 @@
 ﻿using HCI_Task.Server.Data;
 using HCI_Task.Server.Data.DTOs;
 using HCI_Task.Server.Entities;
+using HCI_Task.Server.Repositories.HospotalRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,18 +10,13 @@ namespace HCI_Task.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HospitalController(DataContext context) : ControllerBase
+    public class HospitalController(IHospitalRepository hospitalRepo) : ControllerBase
     {
         [HttpPost]
-        public ActionResult<List<Hospital>> SearchUserHospitalsNames([FromBody] UserHospitalNameSearch search)
+        public async Task<ActionResult<List<Hospital>>> SearchUserHospitalsNames([FromBody] UserHospitalSearchDTO search)
         {
 
-            var hospitals = from hosp in context.Hospitals
-                            join userHosps in context.UserHospitals
-                            on hosp.Id equals userHosps.Id
-                            where userHosps.UserId == search.UserId
-                            && EF.Functions.Like(hosp.Name, $"%{search.SearchTerm}%")
-                            select hosp;
+            var hospitals = await hospitalRepo.SearchUserHospitalByName(search);
 
             return Ok(hospitals);
         }

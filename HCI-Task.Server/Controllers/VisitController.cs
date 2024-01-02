@@ -1,6 +1,7 @@
 ﻿using HCI_Task.Server.Data;
 using HCI_Task.Server.Data.DTOs;
 using HCI_Task.Server.Entities;
+using HCI_Task.Server.Repositories.VisitRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,33 +10,25 @@ namespace HCI_Task.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VisitController(DataContext context) : ControllerBase
+    public class VisitController(IVisitRepository visitRepo) : ControllerBase
     {
         [HttpPost]
-        public ActionResult<List<VisitSearchResult>> RetrievePatientHospitalVisits([FromBody] VisitSearch search)
+        public async Task<ActionResult<List<VisitSearchResultDTO>>> RetrievePatientHospitalVisits([FromBody] VisitHospitalPatientSearchDTO search)
         {
-            var result = context.Visits
-                .Where(v => v.PatientId == search.PatientId &&
-                            v.HospitalId == search.HospitalId)
-                .Select(v=> new VisitSearchResult
-                {
-                    Id = v.Id,
-                    Description = v.Description,
-                    CreatedAt = v.CreatedAt,
-
-                }).ToList();
+            var result = await visitRepo.SearchHospitalVisitsByPatient(search);
 
             return Ok(result);
         }
 
         [HttpGet("visitId")]
-        public ActionResult<Visit> RetrieveVisitDetails (int visitId)
+        public async Task<ActionResult<Visit>> RetrieveVisitDetails (int visitId)
         {
-            var visit = context.Visits
-                .Where(v => v.Id == visitId)
-                .Include(v => v.Patient)
-                .Include("Hospital")
-                .FirstOrDefault(/*v => v.Id == visitId*/);
+
+            var visit = await visitRepo.GetVisitDetails(visitId);
+            if(visit == null)
+            {
+                return NotFound($"Visit #{visitId} was Not Found!");
+            }
 
             return Ok(visit);
         }
