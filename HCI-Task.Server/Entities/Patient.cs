@@ -6,7 +6,7 @@
         public required string Name { get; set; }
         public  DateOnly BirthDate { get; set; }
         //More Data to be added later such as address, contact, emergency contact etc
-        public List<Visit> Visits { get; set; } = [];
+        //public List<Visit> Visits { get; set; } = [];
 
     }
 }
