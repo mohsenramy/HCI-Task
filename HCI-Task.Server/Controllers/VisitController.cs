@@ -20,7 +20,8 @@ namespace HCI_Task.Server.Controllers
             return Ok(result);
         }
 
-        [HttpGet("visitId")]
+        [HttpGet]
+        [Route("{visitId}")]
         public async Task<ActionResult<Visit>> RetrieveVisitDetails (int visitId)
         {
 
