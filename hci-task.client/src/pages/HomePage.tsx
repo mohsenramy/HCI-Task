@@ -47,6 +47,7 @@ const HomePage = () => {
               <div className="rounded-none rounded-b-md flex items-center mb-1 text-sm font-semibold">
                 Current User:{" "}
                 <Select
+                  data-testid='users-select'
                   value={selectedUserOption}
                   onChange={(selected: OptionType | null) =>
                     setSelectedUserOption(selected)
