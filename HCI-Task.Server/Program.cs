@@ -23,6 +23,18 @@ builder.Services.AddScoped<IHospitalRepository, HospitalRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IVisitRepository, VisitRepository>();
 
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy("AllowAnyOrigin",
+//         builder =>
+//         {
+//             builder
+//                 .AllowAnyOrigin()
+//                 .AllowAnyHeader()
+//                 .AllowAnyMethod();
+//         });
+// });
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
