@@ -118,6 +118,7 @@ const VisitsSearch: React.FC<Props> = ({ selectedUser }) => {
                 </div>
             </div>
             <VisitsList data={Visits} loading={loadingVisits} />
+
         </div>
     );
 };
