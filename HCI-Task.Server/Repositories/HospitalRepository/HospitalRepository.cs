@@ -12,7 +12,7 @@ namespace HCI_Task.Server.Repositories.HospitalRepository
         {
             var query = from hosp in context.Hospitals
                         join userHosps in context.UserHospitals
-                        on hosp.Id equals userHosps.Id
+                        on hosp.Id equals userHosps.HospitalId
                         where userHosps.UserId == search.UserId
                         && EF.Functions.Like(hosp.Name, $"%{search.SearchTerm}%")
                         select hosp;
