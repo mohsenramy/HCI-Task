@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import AsyncSelect from "react-select/async";
 import { patientsAPI } from "../api/patientsAPI";
 import { hospitalAPI } from "../api/hospitalAPI";
@@ -7,19 +7,22 @@ import { visitAPI } from "../api/visitAPI";
 import VisitsList from "./VisitsList";
 import { OptionType } from "../@types/otherTypes";
 
-export type Patient = {
-    Id: number;
-    Name: string;
-    DateOfBirth?: Date;
-};
+// export type Patient = {
+//     Id: number;
+//     Name: string;
+//     DateOfBirth?: Date;
+// };
 
 
-export type VisitSearch = {
-    PatientId: number;
-    HospitalId: number;
-};
+// export type VisitSearch = {
+//     PatientId: number;
+//     HospitalId: number;
+// };
 
-const VisitsSearch = () => {
+interface Props {
+    selectedUser: string;
+}
+const VisitsSearch: React.FC<Props> = ({ selectedUser }) => {
     const [selectedPatientOption, setSelectedPatientOption] =
         useState<OptionType | null>(null);
     const [selectedHospitalOption, setSelectedHospitalOption] =
@@ -52,7 +55,7 @@ const VisitsSearch = () => {
         try {
             const data = await hospitalAPI.searchHospitalNames({
                 searchTerm: inputValue,
-                userId: "1",
+                userId: selectedUser,
             });
             const options: OptionType[] = data.map((item): OptionType => {
                 return {
@@ -76,7 +79,6 @@ const VisitsSearch = () => {
             const hosId: number = +selectedHospitalOption.value;
             setLoadingVisits(true)
             const data = await visitAPI.searchPatientHospitalVisits({ patientId: patId, hospitalId: hosId })
-            console.log(data)
             setVisits(data)
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -86,10 +88,9 @@ const VisitsSearch = () => {
     }
 
     return (
-        <>
+        <div className="min-h-[70vh]">
             <div className="flex flex-col bg-white border-gray-200 rounded-md m-4 border-2 txt-sm font-semibold shadow-md">
-                <div className="m-2 basis-5/12 p-1 ">
-                    {/* <SearchBar loading={loadingPatients} options={patients} requests={searchPatientNames} onClickFunction={onPatientSelect} placeholder="Find a Patient" /> */}
+                <div className="m-2  p-1 ">
                     <AsyncSelect
                         required={true}
                         value={selectedPatientOption}
@@ -100,7 +101,7 @@ const VisitsSearch = () => {
                         placeholder="Type Patient Name to search"
                     />
                 </div>
-                <div className="m-2 basis-5/12 p-1 ">
+                <div className="m-2 p-1 ">
                     <AsyncSelect
                         value={selectedHospitalOption}
                         onChange={(selected: OptionType | null) =>
@@ -121,7 +122,7 @@ const VisitsSearch = () => {
                 </div>
             </div>
             <VisitsList data={Visits} loading={loadingVisits} />
-        </>
+        </div>
     );
 };
 
