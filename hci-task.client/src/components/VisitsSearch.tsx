@@ -6,18 +6,8 @@ import { VisitSearchResult } from "../@types/visitTypes";
 import { visitAPI } from "../api/visitAPI";
 import VisitsList from "./VisitsList";
 import { OptionType } from "../@types/otherTypes";
+import { toast } from "react-toastify";
 
-// export type Patient = {
-//     Id: number;
-//     Name: string;
-//     DateOfBirth?: Date;
-// };
-
-
-// export type VisitSearch = {
-//     PatientId: number;
-//     HospitalId: number;
-// };
 
 interface Props {
     selectedUser: string;
@@ -30,6 +20,8 @@ const VisitsSearch: React.FC<Props> = ({ selectedUser }) => {
 
     const [Visits, setVisits] = useState<VisitSearchResult[] | []>([])
     const [loadingVisits, setLoadingVisits] = useState(false)
+
+
     const loadPatientOptions = async (
         inputValue: string,
         callback: (options: OptionType[]) => void
@@ -72,12 +64,12 @@ const VisitsSearch: React.FC<Props> = ({ selectedUser }) => {
     const handleSearchVisitsClick = async () => {
         try {
             if (!selectedPatientOption || !selectedHospitalOption) {
-                alert('Fields are required')
+                toast.error('Patient & Hospital names are both required')
                 return
             }
             const patId: number = +selectedPatientOption.value;
             const hosId: number = +selectedHospitalOption.value;
-            setLoadingVisits(true)
+
             const data = await visitAPI.searchPatientHospitalVisits({ patientId: patId, hospitalId: hosId })
             setVisits(data)
         } catch (error) {
@@ -100,6 +92,7 @@ const VisitsSearch: React.FC<Props> = ({ selectedUser }) => {
                         loadOptions={loadPatientOptions}
                         placeholder="Type Patient Name to search"
                     />
+                    <span className="text-xs text-red-600 font-semibold"></span>
                 </div>
                 <div className="m-2 p-1 ">
                     <AsyncSelect
@@ -122,6 +115,7 @@ const VisitsSearch: React.FC<Props> = ({ selectedUser }) => {
                 </div>
             </div>
             <VisitsList data={Visits} loading={loadingVisits} />
+
         </div>
     );
 };
