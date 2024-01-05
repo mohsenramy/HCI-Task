@@ -1,7 +1,7 @@
-export type SelectOptions = {
-  label: string;
-  value: number | string;
-};
+// export type SelectOptions = {
+//   label: string;
+//   value: string;
+// };
 
 export type GroupType = {
   label: string;

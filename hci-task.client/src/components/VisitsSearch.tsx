@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AsyncSelect from "react-select/async";
+import { OptionsOrGroups, GroupBase } from 'react-select';
 import { patientsAPI } from "../api/patientsAPI";
 import { hospitalAPI } from "../api/hospitalAPI";
 import { VisitSearchResult } from "../@types/visitTypes";
@@ -7,7 +8,6 @@ import { visitAPI } from "../api/visitAPI";
 import VisitsList from "./VisitsList";
 import { OptionType } from "../@types/otherTypes";
 import { toast } from "react-toastify";
-
 
 interface Props {
     selectedUser: string;
@@ -25,7 +25,7 @@ const VisitsSearch: React.FC<Props> = ({ selectedUser }) => {
     const loadPatientOptions = async (
         inputValue: string,
         callback: (options: OptionType[]) => void
-    ) => {
+    ): Promise<OptionsOrGroups<OptionType, GroupBase<OptionType>>> => {
         try {
             const data = await patientsAPI.searchPatientsNames(inputValue);
             const options: OptionType[] = data.map((item): OptionType => {
@@ -35,15 +35,17 @@ const VisitsSearch: React.FC<Props> = ({ selectedUser }) => {
                 };
             });
             callback(options);
+            return []
         } catch (error) {
             console.error("Error fetching data:", error);
+            return []
         }
     };
 
     const loadHospitalOptions = async (
         inputValue: string,
         callback: (options: OptionType[]) => void
-    ) => {
+    ): Promise<OptionsOrGroups<OptionType, GroupBase<OptionType>>> => {
         try {
             const data = await hospitalAPI.searchHospitalNames({
                 searchTerm: inputValue,
@@ -56,8 +58,10 @@ const VisitsSearch: React.FC<Props> = ({ selectedUser }) => {
                 };
             });
             callback(options);
+            return options;
         } catch (error) {
             console.error("Error fetching data:", error);
+            return []
         }
     };
 
