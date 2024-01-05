@@ -1,7 +1,7 @@
 import React from 'react'
 import { VisitSearchResult } from '../@types/visitTypes'
 import moment from 'moment'
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 interface VisitsListProps {
   data: VisitSearchResult[],
@@ -9,7 +9,6 @@ interface VisitsListProps {
 }
 const VisitsList: React.FC<VisitsListProps> = ({ data, loading }) => {
 
-  const navigate = useNavigate();
 
   const renderDataRow = (dataRow: VisitSearchResult) => {
     return (
@@ -17,14 +16,13 @@ const VisitsList: React.FC<VisitsListProps> = ({ data, loading }) => {
         <div className='basis-2/5'>{moment(dataRow.createdAt).format('DD/MM/YYYY HH:mm A')}</div>
         <div className='basis-2/5'>{dataRow.description}</div>
         <div className='basis-1/5 flex justify-center'>
-          <button
+          <Link
             className='bg-transparent hover:bg-blue-500 text-blue-700 text-xs font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded'
-            onClick={() => {
-              navigate(`/visits/${dataRow.id}`)
-            }}
+            to={`/visits/${dataRow.id}`}
+
           >
             Details
-          </button>
+          </Link>
         </div>
       </div>
     )

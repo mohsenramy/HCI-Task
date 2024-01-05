@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import Select from "react-select";
 import { usersAPI } from "../api/usersAPI";
-import { OptionType, SelectOptions } from "../@types/otherTypes";
+import { OptionType } from "../@types/otherTypes";
 import VisitsSearch from "../components/VisitsSearch";
 import PageContainer from "../components/PageContainer";
 
 const HomePage = () => {
-  const [usersOptions, setUsersOptions] = useState<SelectOptions[]>([]);
+  const [usersOptions, setUsersOptions] = useState<OptionType[]>([]);
   const [selectedUserOption, setSelectedUserOption] =
     useState<OptionType | null>(null);
   const [loading, setLoading] = useState(false);
@@ -18,14 +18,14 @@ const HomePage = () => {
       const usersOpts: OptionType[] = users.map((u) => {
         return {
           label: u.userName,
-          value: u.id,
+          value: u.id.toString(),
         };
       });
       setUsersOptions(usersOpts);
       setSelectedUserOption(usersOpts[0]);
+      setLoading(false);
     } catch (error) {
       console.error(error);
-    } finally {
       setLoading(false);
     }
   };
@@ -37,7 +37,7 @@ const HomePage = () => {
     <PageContainer>
       <div className="flex flex-col m-4 h-[100%] bg-white border-gray-500 border-2 rounded-md p-4 font-semibold">
         {loading ? (
-          <div className='flex justify-center items-center text-gray-500 h-16'>
+          <div className='flex justify-center items-center text-gray-500 h-16' data-testid='loading'>
             Retrieving Data ...
           </div>
         ) : usersOptions.length > 0 ? (
