@@ -13,11 +13,11 @@ namespace HCI_Task.Server.Migrations
                 columns: ["Id", "UserName", "Password", "CreatedAt", "UpdatedAt"],
                 values: new object[,]
                 {
-                    {"1","user_01","password",DateTime.Now,DateTime.Now},
-                    {"2","user_02","password",DateTime.Now,DateTime.Now},
-                    {"3","user_03","password",DateTime.Now,DateTime.Now},
-                    {"4","user_04","password",DateTime.Now,DateTime.Now},
-                    {"5","user_05","password",DateTime.Now,DateTime.Now},
+                    {"1","hci_admin","password",DateTime.Now,DateTime.Now},
+                    {"2","customer_01","password",DateTime.Now,DateTime.Now},
+                    {"3","customer_02","password",DateTime.Now,DateTime.Now},
+                    {"4","customer_03","password",DateTime.Now,DateTime.Now},
+                    {"5","customer_04","password",DateTime.Now,DateTime.Now},
                 });
 
             migrationBuilder.InsertData(
@@ -67,7 +67,24 @@ namespace HCI_Task.Server.Migrations
                     {"14","4","13", "0", DateTime.Now, DateTime.Now},
                     {"15","4","15", "0", DateTime.Now, DateTime.Now},
                     {"16","4","19", "0", DateTime.Now, DateTime.Now},
-                    {"17","4","20", "0", DateTime.Now, DateTime.Now}
+                    {"17","4","20", "0", DateTime.Now, DateTime.Now},
+                    {"18","1","5", "0", DateTime.Now, DateTime.Now},
+                    {"19","1","6", "0", DateTime.Now, DateTime.Now},
+                    {"20","1","7", "0", DateTime.Now, DateTime.Now},
+                    {"21","1","8", "0", DateTime.Now, DateTime.Now},
+                    {"22","1","9", "0", DateTime.Now, DateTime.Now},
+                    {"23","1","10", "0", DateTime.Now, DateTime.Now},
+                    {"24","1","11", "0", DateTime.Now, DateTime.Now},
+                    {"25","1","12", "0", DateTime.Now, DateTime.Now},
+                    {"26","1","13", "0", DateTime.Now, DateTime.Now},
+                    {"27","1","14", "0", DateTime.Now, DateTime.Now},
+                    {"28","1","15", "0", DateTime.Now, DateTime.Now},
+                    {"29","1","16", "0", DateTime.Now, DateTime.Now},
+                    {"30","1","17", "0", DateTime.Now, DateTime.Now},
+                    {"31","1","18", "0", DateTime.Now, DateTime.Now},
+                    {"32","1","19", "0", DateTime.Now, DateTime.Now},
+                    {"33","1","20", "0", DateTime.Now, DateTime.Now},
+
                 });
 
             migrationBuilder.InsertData(
