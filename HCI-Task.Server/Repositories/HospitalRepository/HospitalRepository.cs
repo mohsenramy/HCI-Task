@@ -1,7 +1,7 @@
 ﻿using HCI_Task.Server.Data;
 using HCI_Task.Server.Data.DTOs;
 using HCI_Task.Server.Entities;
-using HCI_Task.Server.Repositories.HospotalRepository;
+using HCI_Task.Server.Repositories.HospitalRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace HCI_Task.Server.Repositories.HospitalRepository

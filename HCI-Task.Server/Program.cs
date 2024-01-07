@@ -1,6 +1,5 @@
 using HCI_Task.Server.Data;
 using HCI_Task.Server.Repositories.HospitalRepository;
-using HCI_Task.Server.Repositories.HospotalRepository;
 using HCI_Task.Server.Repositories.PatientRepository;
 using HCI_Task.Server.Repositories.UserRepository;
 using HCI_Task.Server.Repositories.VisitRepository;

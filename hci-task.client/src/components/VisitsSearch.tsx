@@ -73,7 +73,6 @@ const VisitsSearch: React.FC<Props> = ({ selectedUser }) => {
             }
             const patId: number = +selectedPatientOption.value;
             const hosId: number = +selectedHospitalOption.value;
-
             const data = await visitAPI.searchPatientHospitalVisits({ patientId: patId, hospitalId: hosId })
             setVisits(data)
         } catch (error) {
